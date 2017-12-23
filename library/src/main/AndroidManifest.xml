@@ -1,0 +1,29 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="cn.com.uama.imageeditor">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_name"
+        android:supportsRtl="true">
+
+        <!-- 图片展示（图片画圈前） -->
+        <activity
+            android:name=".EditImagePagerActivity"
+            android:theme="@style/ImageEditorTheme"
+            android:screenOrientation="portrait" />
+        <!-- 编辑图片（画圈、文字） -->
+        <activity
+            android:name=".EditImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageEditorTheme.Translucent" />
+        <!-- 编辑文字 -->
+        <activity
+            android:name=".EditTextActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ImageEditorTheme.Translucent"
+            android:windowSoftInputMode="stateVisible" />
+    </application>
+</manifest>
