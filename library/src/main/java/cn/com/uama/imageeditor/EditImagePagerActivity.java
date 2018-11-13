@@ -67,7 +67,7 @@ public class EditImagePagerActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_image_pager);
+        setContentView(R.layout.lm_image_editor_activity_edit_image_pager);
 
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         // 获取传递过来的图片路径列表

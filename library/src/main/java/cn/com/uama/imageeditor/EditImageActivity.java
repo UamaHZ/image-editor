@@ -62,7 +62,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         intent.putExtra(IMAGE_PATH_TO_EDIT, imagePath);
         intent.putExtra(START_FLAG, true);
         activity.startActivityForResult(intent, requestCode);
-        activity.overridePendingTransition(R.anim.scale_fade_in, 0);
+        activity.overridePendingTransition(R.anim.lm_image_editor_scale_fade_in, 0);
     }
 
     /**
@@ -78,7 +78,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         intent.putExtra(START_FLAG, true);
         fragment.startActivityForResult(intent, requestCode);
         if (fragment.getActivity() != null) {
-            fragment.getActivity().overridePendingTransition(R.anim.scale_fade_in, 0);
+            fragment.getActivity().overridePendingTransition(R.anim.lm_image_editor_scale_fade_in, 0);
         }
     }
 
@@ -94,7 +94,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         intent.putExtra(IMAGE_INFO_TO_EDIT, imageInfo);
         intent.putExtra(START_FLAG, true);
         activity.startActivityForResult(intent, requestCode);
-        activity.overridePendingTransition(R.anim.scale_fade_in, 0);
+        activity.overridePendingTransition(R.anim.lm_image_editor_scale_fade_in, 0);
     }
 
     /**
@@ -110,7 +110,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         intent.putExtra(START_FLAG, true);
         fragment.startActivityForResult(intent, requestCode);
         if (fragment.getActivity() != null) {
-            fragment.getActivity().overridePendingTransition(R.anim.scale_fade_in, 0);
+            fragment.getActivity().overridePendingTransition(R.anim.lm_image_editor_scale_fade_in, 0);
         }
     }
 
@@ -142,7 +142,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_image);
+        setContentView(R.layout.lm_image_editor_activity_edit_image);
 
         if (!getIntent().getBooleanExtra(START_FLAG, false)) {
             throw new IllegalStateException("请使用 EditImageActivity.startForResult 方法来进入编辑界面！");
@@ -323,7 +323,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     private void addText() {
         Intent intent = new Intent(this, EditTextActivity.class);
         startActivityForResult(intent, REQUEST_ADD_TEXT);
-        overridePendingTransition(R.anim.edit_text_from_bottom_up, 0);
+        overridePendingTransition(R.anim.lm_image_editor_edit_text_from_bottom_up, 0);
     }
 
     // 正在编辑的 TextView
@@ -337,7 +337,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         Intent intent = new Intent(this, EditTextActivity.class);
         intent.putExtra("text", textView.getText());
         startActivityForResult(intent, REQUEST_EDIT_TEXT);
-        overridePendingTransition(R.anim.edit_text_from_bottom_up, 0);
+        overridePendingTransition(R.anim.lm_image_editor_edit_text_from_bottom_up, 0);
     }
 
     @Override
@@ -366,6 +366,6 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.scale_fade_out);
+        overridePendingTransition(0, R.anim.lm_image_editor_scale_fade_out);
     }
 }

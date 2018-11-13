@@ -6,22 +6,22 @@
 
     <application
         android:allowBackup="true"
-        android:label="@string/app_name"
+        android:label="@string/lm_image_editor_app_name"
         android:supportsRtl="true">
 
         <!-- 图片展示（图片画圈前） -->
         <activity
             android:name=".EditImagePagerActivity"
-            android:theme="@style/ImageEditorTheme"
+            android:theme="@style/lm_image_editor_ImageEditorTheme"
             android:screenOrientation="portrait" />
         <!-- 编辑图片（画圈、文字） -->
         <activity
             android:name=".EditImageActivity"
-            android:theme="@style/ImageEditorTheme.Translucent" />
+            android:theme="@style/lm_image_editor_ImageEditorTheme.Translucent" />
         <!-- 编辑文字 -->
         <activity
             android:name=".EditTextActivity"
-            android:theme="@style/ImageEditorTheme.Translucent"
+            android:theme="@style/lm_image_editor_ImageEditorTheme.Translucent"
             android:windowSoftInputMode="stateVisible" />
     </application>
 </manifest>

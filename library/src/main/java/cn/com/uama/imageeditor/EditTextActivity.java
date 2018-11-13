@@ -20,7 +20,7 @@ public class EditTextActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_text);
+        setContentView(R.layout.lm_image_editor_activity_edit_text);
 
         editText = (EditText) findViewById(R.id.edit_text);
         // 获取传递过来的文字
@@ -51,6 +51,6 @@ public class EditTextActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, R.anim.edit_text_from_top_down);
+        overridePendingTransition(0, R.anim.lm_image_editor_edit_text_from_top_down);
     }
 }

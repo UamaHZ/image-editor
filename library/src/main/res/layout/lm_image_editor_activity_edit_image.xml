@@ -73,7 +73,7 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:text="画圈"
-            android:textColor="@color/circle_button"
+            android:textColor="@color/lm_image_editor_circle_button"
             android:textSize="14sp" />
 
         <!-- 文字按钮 -->
