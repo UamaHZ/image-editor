@@ -17,12 +17,10 @@
         <!-- 编辑图片（画圈、文字） -->
         <activity
             android:name=".EditImageActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/ImageEditorTheme.Translucent" />
         <!-- 编辑文字 -->
         <activity
             android:name=".EditTextActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/ImageEditorTheme.Translucent"
             android:windowSoftInputMode="stateVisible" />
     </application>
