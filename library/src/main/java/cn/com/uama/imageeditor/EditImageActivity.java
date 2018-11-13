@@ -1,13 +1,18 @@
 package cn.com.uama.imageeditor;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -18,15 +23,12 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.yanzhenjie.permission.AndPermission;
-import com.yanzhenjie.permission.Permission;
-import com.yanzhenjie.permission.PermissionNo;
-import com.yanzhenjie.permission.PermissionYes;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by liwei on 2017/3/18 11:04
@@ -203,11 +205,7 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
             finish();
         } else if (id == R.id.button_done) {
             // 先检查权限
-            AndPermission.with(this)
-                    .requestCode(PERMISSION_REQUEST_STORAGE)
-                    .permission(Permission.STORAGE)
-                    .callback(this)
-                    .start();
+            checkStoragePermissions();
         } else if (id == R.id.button_revoke) {
             revoke();
         } else if (id == R.id.button_text) {
@@ -217,25 +215,44 @@ public class EditImageActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
-    @PermissionYes(PERMISSION_REQUEST_STORAGE)
-    private void onStoragePermissionYes(List<String> grantPermissions) {
-        if (AndPermission.hasPermission(this, grantPermissions)) {
+    private void checkStoragePermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            // 没有权限
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_STORAGE);
+        } else {
+            // 有权限，但是需要再次检查
+            checkStoragePermissionsAgain();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            // 获取到权限，但是需要再次检查（国产 rom）
+            checkStoragePermissionsAgain();
+        } else {
+            // 没有获取到权限，但是也要再次检查
+            if (PermissionUtils.hasPermission(this, Arrays.asList(permissions))) {
+                done();
+            } else if (PermissionUtils.hasAlwaysDeniedPermission(this, Arrays.asList(permissions))) {
+                PermissionUtils.showPermissionSettingDialog(this);
+            }
+        }
+    }
+
+    private void checkStoragePermissionsAgain() {
+        if (PermissionUtils.hasPermission(this, Collections.singletonList(Manifest.permission.WRITE_EXTERNAL_STORAGE))) {
+            // 有权限
             done();
         } else {
+            // 没有权限
             new AlertDialog.Builder(this)
                     .setTitle("没有存储权限")
                     .setMessage("请到系统设置中进行授权")
                     .setPositiveButton("知道了", null)
                     .show();
-        }
-    }
-
-    @PermissionNo(PERMISSION_REQUEST_STORAGE)
-    private void onStoragePermissionNo(List<String> deniedPermissions) {
-        if (AndPermission.hasPermission(this, deniedPermissions)) {
-            done();
-        } else if (AndPermission.hasAlwaysDeniedPermission(this, deniedPermissions)) {
-            AndPermission.defaultSettingDialog(this).show();
         }
     }
 
